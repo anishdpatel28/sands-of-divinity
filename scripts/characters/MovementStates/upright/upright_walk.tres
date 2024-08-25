@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MovementState" load_steps=2 format=3 uid="uid://b6eacjajv1d58"]
+
+[ext_resource type="Script" path="res://scripts/characters/movement-state.gd" id="1_htawk"]
+
+[resource]
+script = ExtResource("1_htawk")
+id = 1
+stance_state = 0
+movement_speed = 3.0
+acceleration = 7.0
+camera_fov = 72.5
+animation_speed = 1.0
