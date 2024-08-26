@@ -4,7 +4,8 @@ extends Node
 @export var anim_tree : AnimationTree
 @export var anim_player : AnimationPlayer
 
-var afk_anim_names : Array = ["Bellydancing"]
+var num_afk_anims : int = 4
+var anim_before_afk : String
 
 enum {IDLE, WALK, RUN}
 
@@ -31,11 +32,15 @@ func handle_animations(movement_state: MovementState):
 					anim_tree.set("parameters/Crouch Movement/transition_request", "Run")
 
 func on_afk_triggered() -> void:
-	anim_tree.set("parameters/Bellydancing/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	var random_afk_anim = randi() % (num_afk_anims + 1)
+	anim_before_afk = player.current_stance_name
+	anim_tree.set("parameters/BlendTree AFK/BlendSpace1D/blend_position", random_afk_anim)
+	anim_tree.set("parameters/Stance Transition/transition_request", "AFK")
 
 func jump() -> void:
 	anim_tree.set("parameters/Jump/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
-func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
-	if anim_name in afk_anim_names:
+func _on_animation_tree_animation_finished(_anim_name: StringName) -> void:
+	if player.afk_timer.get_time_left() == 0:
 		player.reset_afk_timer()
+	player.set_stance(anim_before_afk)
