@@ -5,9 +5,7 @@ extends Node
 @export var anim_player : AnimationPlayer
 
 var num_afk_anims : int = 4
-var anim_before_afk : String
-
-enum {IDLE, WALK, RUN}
+var anim_before_afk : String = "upright"
 
 func handle_animations(movement_state: MovementState):
 	match movement_state.stance_state:
