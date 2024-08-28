@@ -82,7 +82,7 @@ func reset_afk_timer() -> void:
 func is_movement_ongoing() -> bool:
 	return abs(movement_direction.x) > 0 or abs(movement_direction.z) > 0
 
-func set_movement_state(state : String):
+func set_movement_state(state : String) -> void:
 	var stance = get_node(stances[current_stance_name])
 	current_movement_state_name = state
 	changed_movement_state.emit(stance.get_movement_state(state))
