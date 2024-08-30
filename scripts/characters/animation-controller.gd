@@ -22,7 +22,7 @@ func handle_animations(movement_state: MovementState, Xfade_time: float = 0.25) 
 	# Blend Position x --> Played animation - MovementState ID
 	# Blend Position y --> stance_state: 0=Upright, 1=Crouch
 	var movement_vector : Vector2 = Vector2(movement_state.id, movement_state.stance_state)
-	tween.tween_property(anim_tree, "parameters/StateMachine/Basic Movement/blend_position", movement_vector, Xfade_time)
+	tween.tween_property(anim_tree, "parameters/StateMachine/Basic Movement/blend_position", movement_vector, Xfade_time).set_ease(Tween.EASE_IN_OUT)
 
 func on_afk_triggered() -> void:
 	var random_afk_anim = randi() % (num_afk_anims[last_movement_state.stance_state])
