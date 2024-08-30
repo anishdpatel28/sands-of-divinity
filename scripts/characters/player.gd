@@ -76,7 +76,7 @@ func _physics_process(_delta: float) -> void:
 		is_jumping = true
 
 func reset_antispam_timer() -> void:
-	stance_antispam_timer = await get_tree().create_timer(spam_time)
+	stance_antispam_timer = get_tree().create_timer(spam_time)
 
 func reset_afk_timer() -> void:
 	reset_afk.emit()
