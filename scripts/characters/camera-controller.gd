@@ -20,7 +20,7 @@ var pitch_min : float = -55
 
 var tween : Tween
 
-func _ready():
+func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event: InputEvent) -> void:
@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	
 	set_cam_rotation.emit(yaw_node.rotation.y)
 
-func on_set_movement_state(movement_state : MovementState):
+func on_set_movement_state(movement_state : MovementState) -> void:
 	if tween:
 		tween.kill()
 	

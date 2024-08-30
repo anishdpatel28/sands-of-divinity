@@ -4,6 +4,7 @@ signal pressed_jump()
 signal changed_stance(stance : Stance)
 signal changed_movement_state(movement_state: MovementState)
 signal changed_movement_direction(movement_direction: Vector3)
+signal reset_afk()
 
 @export var stances : Dictionary
 @export var afk_timer : Timer
@@ -21,11 +22,12 @@ var spam_time : float = 0.1
 
 func _ready() -> void:
 	reset_antispam_timer()
-	reset_afk_timer()
 	
 	changed_movement_direction.emit(Vector3.BACK)
 	set_movement_state("stand")
 	set_stance(current_stance_name)
+	
+	reset_afk_timer()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("movement") or event.is_action_released("movement"):
@@ -74,9 +76,10 @@ func _physics_process(_delta: float) -> void:
 		is_jumping = true
 
 func reset_antispam_timer() -> void:
-	stance_antispam_timer = get_tree().create_timer(spam_time)
+	stance_antispam_timer = await get_tree().create_timer(spam_time)
 
 func reset_afk_timer() -> void:
+	reset_afk.emit()
 	afk_timer.start(randi() % (afk_max_time - afk_min_time + 1) + afk_min_time)
 
 func is_movement_ongoing() -> bool:
@@ -87,7 +90,7 @@ func set_movement_state(state : String) -> void:
 	current_movement_state_name = state
 	changed_movement_state.emit(stance.get_movement_state(state))
 
-func set_stance(stance_name : String):
+func set_stance(stance_name : String) -> void:
 	if stance_antispam_timer.time_left > 0:
 		return
 	

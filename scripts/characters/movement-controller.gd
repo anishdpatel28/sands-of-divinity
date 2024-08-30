@@ -11,7 +11,7 @@ var acceleration : float
 var speed : float
 var cam_rotation : float = 0
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	velocity.x = speed * direction.normalized().x
 	velocity.z = speed * direction.normalized().z
 	
@@ -28,21 +28,21 @@ func _physics_process(delta):
 	
 	mesh_root.rotation.y = lerp_angle(mesh_root.rotation.y, target_rotation, rotation_speed * delta)
 
-func jump():
+func jump() -> void:
 	var jump_height = 1
 	var apex_duration = 0.5
 	velocity.y = 2 * jump_height / apex_duration
 	jump_gravity = velocity.y / apex_duration
 
-func on_set_movement_state(movement_state: MovementState):
+func on_set_movement_state(movement_state: MovementState) -> void:
 	speed = movement_state.movement_speed
 	acceleration = movement_state.acceleration
 
-func on_set_movement_direction(movement_direction: Vector3):
+func on_set_movement_direction(movement_direction: Vector3) -> void:
 	if not player.is_on_floor():
 		return
 	
 	direction = movement_direction.rotated(Vector3.UP, cam_rotation)
 
-func on_set_cam_rotation(new_cam_rotation: float):
+func on_set_cam_rotation(new_cam_rotation: float) -> void:
 	cam_rotation = new_cam_rotation
