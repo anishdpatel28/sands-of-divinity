@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Sands of Divinity"
-config/version="1.0.0"
+config/version="0.0.1"
 run/main_scene="res://scenes/environments/ragdoll-test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
