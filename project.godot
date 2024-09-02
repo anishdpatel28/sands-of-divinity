@@ -11,6 +11,8 @@ config_version=5
 [application]
 
 config/name="Sands of Divinity"
+config/version="1.0.0"
+run/main_scene="res://scenes/environments/ragdoll-test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -74,3 +76,7 @@ movement={
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
